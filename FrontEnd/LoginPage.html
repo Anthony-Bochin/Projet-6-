@@ -9,27 +9,31 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+    <script src="Login.js" defer></script>
 </head>
 <body>
     <header>
+        <div class="Edit__nav">
             <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-        <nav>
-            <ul>
-                <li>projets</li>
-                <li>contact</li>
-                <li>login</li>
-                <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-            </ul>
-        </nav>
+            <nav>
+                <ul>
+                    <li>projets</li>
+                    <li>contact</li>
+                    <li>login</li>
+                    <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+                </ul>
+            </nav>
+        </div>
+            
     </header>
     <main>
         <section id="login">
             <h2>Log In</h2>
-            <form action="#" method="post">
+            <form id="loginForm" action="#" method="post">
                 <label for="email">E-mail</label>
-                <input type="text" name="name" id="name">
-                <label for="email">Mots de Passe</label>
-                <input type="email" name="email" id="email">                
+                <input type="email" name="email" id="email" required>
+                <label for="password">Mots de Passe</label>
+                <input type="password" name="password" id="password" required>                
                 <input type="submit" value="Se connecter">                
             </form>
             <p>Mot de passe oublié</p>
