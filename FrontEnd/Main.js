@@ -127,7 +127,8 @@ document.querySelector('.btn__Hotels').addEventListener('click', function () {
     filtrerParCategorie(3); 
 });
 
-document.addEventListener('DOMContentLoaded', function () {
+
+
     const photoUpload = document.getElementById('photoUpload');
     const photoTitle = document.getElementById('photoTitle');
     const photoCategory = document.getElementById('photoCategory');
@@ -147,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
     photoUpload.addEventListener('change', updateButtonColor);
     photoTitle.addEventListener('input', updateButtonColor);
     photoCategory.addEventListener('change', updateButtonColor);
-});
+
 
 
 

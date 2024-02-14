@@ -17,10 +17,11 @@ async function genererWork() {
     const reponsAPI = await listWorks.json();
 
     const imagesContainer = document.querySelector('.modal__supr--photo');
-
+    imagesContainer.innerHTML = '';
     for (let i = 0; i < reponsAPI.length; i++) {
         const infoWorks = reponsAPI[i];
 
+        
         // Créer unune balise HTML div
         const divElement = document.createElement('div');
         divElement.classList.add("photo__modal2")
@@ -63,6 +64,43 @@ async function genererWork() {
         imagesContainer.appendChild(divElement);
 
         // appenn on click  la focniton de suppréssion et en paramètre lui mettre infoworks.id 
+    }
+}
+
+
+async function genererWork2() {
+    // Récupère les données depuis l'API
+    const listWorks = await fetch("http://localhost:5678/api/works");
+    const reponsAPI = await listWorks.json();
+    // Met à jour le nombre d'images dans le localStorage
+    
+
+    // Sélectionne le conteneur où les images seront affichées
+    const imagesContainer = document.getElementById('images_container');
+
+    // Vide le conteneur d'images avant d'ajouter les nouveaux éléments
+    imagesContainer.innerHTML = '';
+
+    // Parcourt et affiche chaque œuvre récupérée depuis l'API
+    for (let i = 0; i < reponsAPI.length; i++) {
+        const infoWorks = reponsAPI[i];
+
+        // Crée un élément 'figure' pour chaque œuvre
+        const figureElement = document.createElement('figure');
+
+        // Crée et configure un élément 'img' pour l'image
+        const imageElement = document.createElement('img');
+        imageElement.src = infoWorks.imageUrl;
+        imageElement.alt = infoWorks.title;
+
+        // Crée un élément 'figcaption' pour le titre
+        const figcaptionElement = document.createElement('figcaption');
+        figcaptionElement.textContent = infoWorks.title;
+
+        // Ajoute l'image et le titre au 'figure', puis ajoute le 'figure' au conteneur
+        figureElement.appendChild(imageElement);
+        figureElement.appendChild(figcaptionElement);
+        imagesContainer.appendChild(figureElement);
     }
 }
 
@@ -170,7 +208,8 @@ async function SuprPhoto(id) {
             'Authorization': "Bearer " + bearer,
         },
     });
-    genererWork()    
+    genererWork()
+    genererWork2()   
 }
 
 
