@@ -51,8 +51,7 @@ window.onload = function () {
   }
 };
 
-// Appeler la fonction après le chargement du DOM
-document.addEventListener("DOMContentLoaded", genererWork);
+genererWork();
 
 async function categories_and_Buttons() {
   try {
@@ -75,7 +74,7 @@ async function categories_and_Buttons() {
     categoriesContainer.appendChild(allButton);
 
     categories.forEach((category) => {
-      const categoryName = category.name.replace(/\s+/g, "_"); // Remplace les espaces par des underscores
+      const categoryName = category.name.replace(/\s+/g, "_"); // utilistion d'une regex pour remplace les espaces par des underscores
       const categoryButton = document.createElement("a");
       categoryButton.href = "#";
       categoryButton.textContent = category.name;
@@ -86,7 +85,7 @@ async function categories_and_Buttons() {
       categoriesContainer.appendChild(categoryButton);
     });
   } catch (error) {
-    console.error("Error fetching categories:", error);
+    console.error("Erreur lors de la requête à l'API:", error);
   }
 }
 
@@ -119,9 +118,38 @@ async function filtrerParCategorie(categorieId) {
       }
     });
   } catch (error) {
-    console.error("Error fetching works:", error);
+    console.error("Erreur lors de la requête à l'API:", error);
   }
 }
+
+async function categories__Modal() {
+  try {
+    const response = await fetch("http://localhost:5678/api/categories");
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+    const categories = await response.json();
+    const select = document.getElementById("photoCategory");
+    select.innerHTML = "";
+
+    // Créer une option vide par défaut
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "0";
+    defaultOption.textContent = " ";
+    select.appendChild(defaultOption);
+
+    categories.forEach((category) => {
+      const option = document.createElement("option");
+      option.value = category.id;
+      option.textContent = category.name;
+      select.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Erreur lors de la requête à l'API:", error);
+  }
+}
+
+categories__Modal();
 
 const photoUpload = document.getElementById("photoUpload");
 const photoTitle = document.getElementById("photoTitle");

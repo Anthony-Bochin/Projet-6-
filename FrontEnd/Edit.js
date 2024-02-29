@@ -23,8 +23,8 @@ async function work_modal() {
 
     // Créer un élément de lien (balise <a>) avec la classe "bouton__delet"
     const linkElement = document.createElement("a");
-    linkElement.addEventListener("click", function () {
-      SuprPhoto(infoWorks.id);
+    linkElement.addEventListener("click", function (e) {
+      SuprPhoto(e, infoWorks.id);
     });
     linkElement.href = "#";
     linkElement.classList.add("bouton__delet");
@@ -141,14 +141,33 @@ document
     }
   });
 
-async function SuprPhoto(id) {
-  let bearer = localStorage.getItem("userToken");
-  await fetch(`http://localhost:5678/api/works/${id}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: "Bearer " + bearer,
-    },
-  });
-  work_modal();
-  genererWork();
+async function SuprPhoto(e, id) {
+  e.preventDefault();
+  try {
+    let bearer = localStorage.getItem("userToken");
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + bearer,
+      },
+    });
+
+    if (!response.ok) {
+      let errorMessage =
+        "Une erreur s'est produite lors de la suppression de la photo.";
+      switch (response.status) {
+        case 401:
+          errorMessage = " Unauthorized ";
+          break;
+        case 500:
+          errorMessage = "Unexpected Behaviour";
+          break;
+      }
+      throw new Error(errorMessage);
+    }
+    work_modal();
+    genererWork();
+  } catch (error) {
+    console.error("Erreur lors de la suppression de la photo:", error.message);
+  }
 }

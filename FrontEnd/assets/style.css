@@ -128,6 +128,9 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+* {
+  scroll-behavior: smooth;
+}
 /** end reset css**/
 body {
   max-width: 1140px;
